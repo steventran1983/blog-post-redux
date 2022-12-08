@@ -2,6 +2,8 @@ import express from "express";
 
 import bodyParser from "body-parser";
 
+import morgan from "morgan";
+
 import mongoose from "mongoose";
 
 import cors from "cors";
@@ -16,17 +18,12 @@ const port = process.env.PORT || 4000;
 
 const app = express();
 
-app.use("/api", indexRouter);
+app.use(morgan("tiny"));
 
-app.get("/", (req, res) => {
-  return res.send("Success ...");
-});
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
+app.use(express.json());
 app.use(cors());
 
-
+app.use("/", indexRouter);
 mongoose.set("strictQuery", true);
 mongoose
   .connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true })

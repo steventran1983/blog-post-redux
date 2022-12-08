@@ -1,14 +1,9 @@
-import express from 'express'
+import express from "express";
 
-import postsRouter from './postsRouter.js'
+import postsRouter from "./postsRouter.js";
 
-const router = express.Router()
+const router = express.Router();
 
+router.use("/api", postsRouter);
 
-router.get('/', (req, res, next) => {
-  res.send("This is API")
-})
-
-router.get('/post',postsRouter)
-
-export default router
+export default router;
